@@ -5,39 +5,26 @@
  */
 package naivebayesclassifier;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import com.opencsv.CSVReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
  * @author Ted125
  */
 public class CSVLoader {
-    public static String[][] Load(){
-        String filePath = "C:\\Users\\Ted125\\Documents\\My Codes\\Java\\NaiveBayesClassifier\\src\\files\\deceptive-opinion.csv"; 
-        String cvsSplitBy = ",";
-        String[][] table = new String[10][5];
-        
-        return ReadFile(filePath, cvsSplitBy, table);
-    }
+    private static final String FULL_DATASET_FILE_PATH = "src/files/deceptive-opinion.csv"; 
     
-    public static String[][] ReadFile( String file_path, String splitBy, String[][] table){
-        String line = "";
-        int ndx = 0; 
-        
-        try(BufferedReader br = new BufferedReader(new FileReader(file_path))){
-            while((line = br.readLine()) != null){
-                // use comma as separator
-                String[] xy = line.split(splitBy);
-                table[ndx][0] = xy[0]; 
-                table[ndx][1] = xy[1]; 
-                ndx++;
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            return table;
+    public static List<String[]> Load() throws IOException{
+        try (
+            Reader reader = Files.newBufferedReader(Paths.get(FULL_DATASET_FILE_PATH));
+            CSVReader csvReader = new CSVReader(reader);
+        ) {
+            return csvReader.readAll();
         }
     }
 }

@@ -5,10 +5,18 @@
  */
 package naivebayesclassifier;
 
+import java.util.List;
+
 /**
  *
  * @author Ted125
  */
 public class Dataset {
-    
+    public static void DisplayTable(List<String[]> records){
+        for(String[] record : records){
+            for(int offset = 0; offset < record.length; offset++){
+                System.out.printf("|    %s    |", record[offset]);
+            }
+        }
+    }
 }

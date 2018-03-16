@@ -5,6 +5,11 @@
  */
 package naivebayesclassifier;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Ted125
@@ -15,7 +20,12 @@ public class NaiveBayesClassifier {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            List<String[]> records = CSVLoader.Load();
+            Dataset.DisplayTable(records);
+        } catch (IOException ex) {
+            System.out.println("Failed to load records.");
+        }
     }
     
 }
