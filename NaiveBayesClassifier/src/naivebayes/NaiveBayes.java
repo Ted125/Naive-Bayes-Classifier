@@ -179,7 +179,10 @@ public class NaiveBayes {
                 knowledgeBase.logLikelihoods.get(feature).put(category, logLikelihood);
             }
         }
+        
         featureOccurrencesInCategory=null;
+        
+        featureStats.displayFrequencyMatrix();
     }
 
     public void train(Map<String, String[]> trainingDataset) {
@@ -188,7 +191,7 @@ public class NaiveBayes {
 
     public String predict(String text) throws IllegalArgumentException {
         if(knowledgeBase == null) {
-            throw new IllegalArgumentException("Knowledge Bases missing: Make sure you train first a classifier before you use it.");
+            throw new IllegalArgumentException("Knowledge Bases missing: Make sure you train a classifier first before you use it.");
         }
         
         Document doc = TextTokenizer.tokenize(text);
@@ -217,7 +220,7 @@ public class NaiveBayes {
                 logprob += occurrences * knowledgeBase.logLikelihoods.get(feature).get(category);
             }
             
-            if(logprob>maxScore) {
+            if(logprob > maxScore) {
                 maxScore = logprob;
                 maxScoreCategory = category;
             }

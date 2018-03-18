@@ -22,4 +22,24 @@ public class FeatureStats {
         featureCategoryJointCount = new HashMap<>();
         categoryCounts = new HashMap<>();
     }
+    
+    public void displayFrequencyMatrix(){
+        System.out.println("Word : " + Driver.ANSI_GREEN + "TRUTHFUL" + Driver.ANSI_RESET + " | " + Driver.ANSI_RED + "DECEPTIVE" + Driver.ANSI_RESET);
+        
+        for(Map.Entry<String, Map<String, Integer>> entry : featureCategoryJointCount.entrySet()){
+            String word = entry.getKey();
+            System.out.print(word + " : ");
+            
+            for(Map.Entry<String, Integer> categoryEntry : entry.getValue().entrySet()){
+                String category = categoryEntry.getKey();
+                int frequency = categoryEntry.getValue();
+                
+                if(category.equalsIgnoreCase("truthful")){
+                    System.out.print(Driver.ANSI_GREEN + frequency + Driver.ANSI_RESET + " | ");
+                }else if(category.equalsIgnoreCase("deceptive")){
+                    System.out.print(Driver.ANSI_RED + frequency + Driver.ANSI_RESET + "\n");
+                }
+            }
+        }
+    }
 }

@@ -33,7 +33,7 @@ public class FeatureExtraction {
                 stats.categoryCounts.put(category, 1);
             }
             else {
-                stats.categoryCounts.put(category, categoryCount+1);
+                stats.categoryCounts.put(category, categoryCount + 1 );
             }
             
             for(Map.Entry<String, Integer> entry : doc.tokens.entrySet()) {
@@ -45,7 +45,7 @@ public class FeatureExtraction {
                     stats.featureCategoryJointCount.put(feature, new HashMap<String, Integer>());
                 }
                 
-                featureCategoryCount=stats.featureCategoryJointCount.get(feature).get(category);
+                featureCategoryCount = stats.featureCategoryJointCount.get(feature).get(category);
                 
                 if(featureCategoryCount == null) {
                     featureCategoryCount = 0;
