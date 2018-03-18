@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
  */
 public class Driver {
     public static final String DATASET_PATH = "src/files/deceptive-opinion.csv";
-    public static final int ROW_LIMIT = 10;
+    public static final int ROW_LIMIT = 800;
     public static final int COLUMN_REVIEWS = 4;
     public static final int COLUMN_DECEPTIVENESS = 0;
     
