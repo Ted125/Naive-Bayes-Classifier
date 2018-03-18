@@ -46,6 +46,8 @@ public class TextTokenizer {
         
         Document doc = new Document();
         doc.tokens = getKeywordCounts(keywordArray);
+        doc.displayFrequencyMatrix();
+        
         return doc;
     }
 }
