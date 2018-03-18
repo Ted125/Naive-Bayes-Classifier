@@ -18,10 +18,10 @@ import java.util.stream.IntStream;
  * @author Ted125
  */
 public class Driver {
-    private static final String DATASET_PATH = "src/files/deceptive-opinion.csv";
-    private static final int ROW_LIMIT = 800;
-    private static final int COLUMN_REVIEWS = 4;
-    private static final int COLUMN_DECEPTIVENESS = 1;
+    public static final String DATASET_PATH = "src/files/deceptive-opinion.csv";
+    public static final int ROW_LIMIT = 800;
+    public static final int COLUMN_REVIEWS = 4;
+    public static final int COLUMN_DECEPTIVENESS = 0;
     
     public static void main(String[] args) throws IOException {
         String[][] trainingData = LoadTrainingData(ROW_LIMIT);
@@ -32,7 +32,7 @@ public class Driver {
         InputTestData(new NaiveBayes(reviews, labels, new ArrayList<String>(vocabulary)));
     }
     
-    private static String[][] LoadTrainingData(int limit){
+    public static String[][] LoadTrainingData(int limit){
         try {
             List<String[]> dataset = CSVLoader.Load(DATASET_PATH);
             int rows = (limit <= dataset.size())? limit : dataset.size();
@@ -89,16 +89,16 @@ public class Driver {
     
     static void InputTestData(NaiveBayes nb) throws IOException{
         System.out.println();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         
         while(true){
             System.out.println("Enter test review (or exit):");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             String[] values = bufferedReader.readLine().split(" ");
             
             if(values[0].equals("exit")){
                 System.exit(0);
             }else{
-                System.out.println("\n" + nb.Classify(values));
+                System.out.println("\n" + nb.Classify(values) + "\n\n");
             }
         }
     }
