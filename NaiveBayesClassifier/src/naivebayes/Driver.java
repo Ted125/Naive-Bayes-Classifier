@@ -73,9 +73,9 @@ public class Driver {
                 System.exit(0);
             }else{
                 if(nb.predict(input).equalsIgnoreCase("Truthful")){
-                    System.out.printf("The text is classified as " + ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + ".");
+                    System.out.printf("The text is classified as " + ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + ".\n\n");
                 }else if(nb.predict(input).equalsIgnoreCase("Deceptive")){
-                    System.out.printf("The text is classified as " + ANSI_RED + "DECEPTIVE" + ANSI_RESET + ".");
+                    System.out.printf("The text is classified as " + ANSI_RED + "DECEPTIVE" + ANSI_RESET + ".\n\n");
                 }
             }
         }
