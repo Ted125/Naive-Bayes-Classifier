@@ -57,7 +57,7 @@ public class Driver {
         
         String[][] reviews = new String[trainingData.length -1][];
         IntStream.range(0, trainingData.length -1).forEach(i -> 
-                reviews[i] = trainingData[i + 1][COLUMN_REVIEWS].toString().toLowerCase().split(" ")
+                reviews[i] = trainingData[i + 1][COLUMN_REVIEWS].toString().replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+")
         );
         
         return reviews;
@@ -93,7 +93,7 @@ public class Driver {
         while(true){
             System.out.println("Enter test review (or exit):");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            String[] values = bufferedReader.readLine().split(" ");
+            String[] values = bufferedReader.readLine().replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
             
             if(values[0].equals("exit")){
                 System.exit(0);
