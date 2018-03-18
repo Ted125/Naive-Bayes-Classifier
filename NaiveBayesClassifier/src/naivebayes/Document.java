@@ -19,4 +19,15 @@ public class Document {
     public Document(){
         tokens = new HashMap<>();
     }
+    
+    public void displayFrequencyMatrix(){
+        System.out.println("Word : Frequency");
+        
+        for(Map.Entry<String, Integer> entry : tokens.entrySet()){
+            String word = entry.getKey();
+            Integer frequency = entry.getValue();
+            
+            System.out.println(word + " : " + frequency);
+        }
+    }
 }
