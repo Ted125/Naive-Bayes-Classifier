@@ -21,6 +21,8 @@ public class NaiveBayes {
     private RealMatrix positiveProbabilities;
     private RealMatrix negativeProbabilities;
     
+    DisplayHelper displayHelper = null;
+    
     private static String POSITIVE_LABEL = "truthful";
     private static String NEGATIVE_LABEL = "deceptive";
     
@@ -33,6 +35,9 @@ public class NaiveBayes {
         IntStream.range(0, data.length).forEach(i -> 
                 probabilityArray[i] = MapDocumentToVocabulary(data[i])
         );
+        
+        displayHelper = new DisplayHelper(vocabulary);
+        displayHelper.DisplayTrainingData(Driver.LoadTrainingData(Driver.ROW_LIMIT));
         
         CalculatePriorProbability(label).CalculateConditionalProbabilities(MatrixUtils.createRealMatrix(probabilityArray), label);
     }
@@ -67,6 +72,8 @@ public class NaiveBayes {
         }
         
         priorProbability = sum / (double) label.length;
+        
+        displayHelper.SetPriors(sum, label.length);
         
         return this;
     }
@@ -118,19 +125,23 @@ public class NaiveBayes {
         positiveProbabilities = log(positiveProbabilityNumber.scalarMultiply(1 / positiveProbabilityDenominator));
         negativeProbabilities = log(negativeProbabilityNumber.scalarMultiply(1 / negativeProbabilityDenominator));
         
+        displayHelper.DisplayCalculationOfConditionalProbabilities(negativeProbabilityNumber, positiveProbabilityNumber, negativeProbabilityDenominator, positiveProbabilityDenominator);
+        
         return this;
     }
     
     public String Classify(String[] docArray){
-        String sentiment = NEGATIVE_LABEL;
+        String sentiment = DisplayHelper.ANSI_RED + NEGATIVE_LABEL + DisplayHelper.ANSI_RESET;
         RealMatrix doc = MatrixUtils.createRowRealMatrix(MapDocumentToVocabulary(docArray));
         
         double positiveLogSums = Math.log(priorProbability) + doc.multiply(positiveProbabilities.transpose()).getData()[0][0];
         double negativeLogSums = Math.log(1 - priorProbability) + doc.multiply(negativeProbabilities.transpose()).getData()[0][0];
         
         if(positiveLogSums > negativeLogSums){
-            sentiment = POSITIVE_LABEL;
+            sentiment = DisplayHelper.ANSI_GREEN + POSITIVE_LABEL + DisplayHelper.ANSI_RESET;
         }
+        
+        displayHelper.DisplayClassification(doc, positiveLogSums, negativeLogSums);
         
         return "The text is classified as expressing a " + sentiment + " sentiment.";
     }
