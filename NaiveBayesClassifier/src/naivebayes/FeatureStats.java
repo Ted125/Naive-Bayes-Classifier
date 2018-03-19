@@ -37,7 +37,11 @@ public class FeatureStats {
                 if(category.equalsIgnoreCase("truthful")){
                     System.out.print(Driver.ANSI_GREEN + frequency + Driver.ANSI_RESET + " | ");
                 }else if(category.equalsIgnoreCase("deceptive")){
-                    System.out.print(Driver.ANSI_RED + frequency + Driver.ANSI_RESET + "\n");
+                    if (frequency > 0 ) {
+                            System.out.print(Driver.ANSI_RED + frequency + Driver.ANSI_RESET + "\n");
+                    }else  {
+                            System.out.print(Driver.ANSI_RED + 0  + Driver.ANSI_RESET + "\n");
+                    }
                 }
             }
         }
