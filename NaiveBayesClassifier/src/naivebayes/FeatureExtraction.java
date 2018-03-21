@@ -90,9 +90,10 @@ public class FeatureExtraction {
                 
                 chisquareScore = stats.numObservations * Math.pow(N11 * N00 - N10 * N01, 2) / ((N11 + N01) * (N11 + N10) * (N10 + N00) * (N01 + N00));
                 
-                if(chisquareScore>=criticalLevel) {
+                if(chisquareScore >= criticalLevel) {
                     previousScore = selectedFeatures.get(feature);
-                    if(previousScore==null || chisquareScore>previousScore) {
+                    
+                    if(previousScore == null || chisquareScore > previousScore) {
                         selectedFeatures.put(feature, chisquareScore);
                     }
                 }

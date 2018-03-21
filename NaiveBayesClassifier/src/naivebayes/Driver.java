@@ -44,7 +44,7 @@ public class Driver {
         }
         
         NaiveBayes nb = new NaiveBayes();
-        nb.setChisquareCriticalValue(6.63);
+        nb.setChisquareCriticalValue(6.63); //0.01 pvalue
         nb.train(trainingExamples);
         
         NaiveBayesKnowledgeBase knowledgeBase = nb.getKnowledgeBase();

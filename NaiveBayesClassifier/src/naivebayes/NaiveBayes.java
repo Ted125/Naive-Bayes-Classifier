@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Ted125
  */
 public class NaiveBayes {
-    private double chisquareCriticalValue = 10.83;
+    private double chisquareCriticalValue = 10.83; //equivalent to pvalue 0.001. It is used by feature selection algorithm
     
     private NaiveBayesKnowledgeBase knowledgeBase;
     
@@ -77,7 +77,7 @@ public class NaiveBayes {
         while(it.hasNext()) {
             String feature = it.next().getKey();
         
-            if(selectedFeatures.containsKey(feature)==false) {
+            if(selectedFeatures.containsKey(feature) == false) {
                 it.remove();
             }
         }
@@ -95,8 +95,7 @@ public class NaiveBayes {
         knowledgeBase.numFeatures = featureStats.featureCategoryJointCount.size();
         
         
-        if(categoryPriors==null) { 
-            //if not estimate the priors from the sample
+        if(categoryPriors == null) { 
             knowledgeBase.numCategories = featureStats.categoryCounts.size();
             knowledgeBase.logPriors = new HashMap<>();
             
@@ -114,7 +113,6 @@ public class NaiveBayes {
         }else {
             knowledgeBase.numCategories = categoryPriors.size();
             
-            //make sure that the given priors are valid
             if(knowledgeBase.numCategories != featureStats.categoryCounts.size()) {
                 throw new IllegalArgumentException("Invalid priors Array: Make sure you pass a prior probability for every supported category.");
             }
@@ -172,8 +170,8 @@ public class NaiveBayes {
                     count = 0;
                 }
                 
-                //logLikelihood = Math.log((count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures));
-                logLikelihood = (count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures);
+//                logLikelihood = Math.log((count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures));
+                logLikelihood = (count + 1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures);
                 
                 if(knowledgeBase.logLikelihoods.containsKey(feature) == false) {
                     knowledgeBase.logLikelihoods.put(feature, new HashMap<String, Double>());
