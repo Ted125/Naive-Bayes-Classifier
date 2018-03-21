@@ -49,6 +49,7 @@ public class Driver {
         
         NaiveBayesKnowledgeBase knowledgeBase = nb.getKnowledgeBase();
         
+        System.out.println ("****************************************************************************************************************************");
         inputTestData(knowledgeBase);
     }
     
@@ -84,7 +85,7 @@ public class Driver {
         for(i = 0; i < testLines.length; i++){
             String input = testLines[i][1];
             String prediction =  nb.predict(testLines[i][1]);
-            
+                        
             if(testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){
                predicted_Truthful_Yes++; 
             }else if (!testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){

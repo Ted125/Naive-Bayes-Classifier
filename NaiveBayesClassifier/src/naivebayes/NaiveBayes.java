@@ -172,8 +172,9 @@ public class NaiveBayes {
                     count = 0;
                 }
                 
-                logLikelihood = Math.log((count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures));
-      
+                //logLikelihood = Math.log((count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures));
+                logLikelihood = (count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures);
+                
                 if(knowledgeBase.logLikelihoods.containsKey(feature) == false) {
                     knowledgeBase.logLikelihoods.put(feature, new HashMap<String, Double>());
                 }
@@ -199,7 +200,7 @@ public class NaiveBayes {
         Document doc = TextTokenizer.tokenize(text);
         
         String category;
-        String feature;
+        String feature = null;
         Integer occurrences;
         Double logprob;
         
@@ -219,18 +220,16 @@ public class NaiveBayes {
                 
                 occurrences = entry2.getValue();
                 
-                logprob += occurrences * (knowledgeBase.logLikelihoods.get(feature).get(category));
-                System.out.println("PROBABILIY FOR "  + feature + ": " + logprob);
+                logprob += occurrences * (knowledgeBase.logLikelihoods.get(feature).get(category));                
             }
             
             if(logprob > maxScore) {
-                maxScore = logprob + 1;
-                maxScoreCategory = category;
-                
+                maxScore = logprob;
+                maxScoreCategory = category; 
             }
         }
         
-        
+        System.out.println("Prob for" + text + " : " + maxScore);
         return maxScoreCategory;
     }
 }
