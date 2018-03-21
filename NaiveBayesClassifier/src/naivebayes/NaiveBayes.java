@@ -102,12 +102,14 @@ public class NaiveBayes {
             
             String category;
             int count;
+            double logvalue;
             
             for(Map.Entry<String, Integer> entry : featureStats.categoryCounts.entrySet()) {
                 category = entry.getKey();
-                count = entry.getValue();
+                count = entry.getValue() ;
+                logvalue = Math.log((double)count / knowledgeBase.numObservations);
                 
-                knowledgeBase.logPriors.put(category, Math.log((double)count / knowledgeBase.numObservations));
+                knowledgeBase.logPriors.put(category, logvalue); 
             }
         }else {
             knowledgeBase.numCategories = categoryPriors.size();
@@ -171,7 +173,7 @@ public class NaiveBayes {
                 }
                 
                 logLikelihood = Math.log((count+1.0) / (featureOccurrencesInCategory.get(category) + knowledgeBase.numFeatures));
-                
+      
                 if(knowledgeBase.logLikelihoods.containsKey(feature) == false) {
                     knowledgeBase.logLikelihoods.put(feature, new HashMap<String, Double>());
                 }
@@ -207,7 +209,7 @@ public class NaiveBayes {
         for(Map.Entry<String, Double> entry1 : knowledgeBase.logPriors.entrySet()) {
             category = entry1.getKey();
             logprob = entry1.getValue();
-            
+                        
             for(Map.Entry<String, Integer> entry2 : doc.tokens.entrySet()) {
                 feature = entry2.getKey();
                 
@@ -217,14 +219,17 @@ public class NaiveBayes {
                 
                 occurrences = entry2.getValue();
                 
-                logprob += occurrences * knowledgeBase.logLikelihoods.get(feature).get(category);
+                logprob += occurrences * (knowledgeBase.logLikelihoods.get(feature).get(category));
+                System.out.println("PROBABILIY FOR "  + feature + ": " + logprob);
             }
             
             if(logprob > maxScore) {
-                maxScore = logprob;
+                maxScore = logprob + 1;
                 maxScoreCategory = category;
+                
             }
         }
+        
         
         return maxScoreCategory;
     }

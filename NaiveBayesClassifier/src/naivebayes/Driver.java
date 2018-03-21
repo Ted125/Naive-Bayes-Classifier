@@ -65,6 +65,7 @@ public class Driver {
     
     private static void inputTestData(NaiveBayesKnowledgeBase knowledgeBase) throws IOException{
        NaiveBayes nb = new NaiveBayes(knowledgeBase);
+
        int predicted_Truthful_No = 0; 
        int predicted_Truthful_Yes = 0;
        int predicted_Deceptive_No = 0; 
