@@ -36,7 +36,7 @@ public class Driver {
         Map<String, String> trainingFiles = new HashMap<>();
         trainingFiles.put("Truthful", DATASET_TRUTHFUL);
         trainingFiles.put("Deceptive", DATASET_DECEPTIVE);
-        
+            
         Map<String, String[]> trainingExamples = new HashMap<>();
         
         for(Map.Entry<String, String> entry : trainingFiles.entrySet()) {
