@@ -28,7 +28,9 @@ public class Driver {
     
     private static final String DATASET_TRUTHFUL = "src/files/reviews_truthful.csv";
     private static final String DATASET_DECEPTIVE = "src/files/reviews_deceptive.csv";
+    private static final String DATASET_TEST = "src/files/reviews_trainsets.csv";
     private static final int COLUMN_REVIEWS = 4;
+    private static final int COLUMN_DECEPTION = 0;
     
     public static void main(String[] args) throws IOException {
         Map<String, String> trainingFiles = new HashMap<>();
@@ -61,23 +63,63 @@ public class Driver {
         return lines;
     }
     
-    private static void inputTestData(NaiveBayesKnowledgeBase knowledgeBase){
-        NaiveBayes nb = new NaiveBayes(knowledgeBase);
+    private static void inputTestData(NaiveBayesKnowledgeBase knowledgeBase) throws IOException{
+       NaiveBayes nb = new NaiveBayes(knowledgeBase);
+       int predicted_Truthful_No = 0; 
+       int predicted_Truthful_Yes = 0;
+       int predicted_Deceptive_No = 0; 
+       int predicted_Deceptive_Yes = 0; 
+       int i; 
+       
+       List<String[]> records = CSVLoader.Load(DATASET_TEST);
+       String[][] testLines = new String[records.size()][2];
         
-        while(true){
-            System.out.println("Enter test review (or exit):");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+       for(i = 0; i < testLines.length; i++){
+            testLines[i][0] = records.get(i)[COLUMN_DECEPTION];
+            testLines[i][1] = records.get(i)[COLUMN_REVIEWS];
+       }
+        
+        ///testing
+        for(i = 0; i < testLines.length; i++){
+            String input = testLines[i][1];
+            String prediction =  nb.predict(testLines[i][1]);
             
-            if(input.equals("exit")){
-                System.exit(0);
-            }else{
-                if(nb.predict(input).equalsIgnoreCase("Truthful")){
-                    System.out.printf("The text is classified as " + ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + ".\n\n");
-                }else if(nb.predict(input).equalsIgnoreCase("Deceptive")){
-                    System.out.printf("The text is classified as " + ANSI_RED + "DECEPTIVE" + ANSI_RESET + ".\n\n");
-                }
+            if(testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){
+               predicted_Truthful_Yes++; 
+            }else if (!testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){
+                predicted_Truthful_No++;
+            }else if(testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Deceptive")){
+               predicted_Deceptive_Yes++; 
+            }else if (!testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Deceptive")){
+                predicted_Deceptive_No++;
             }
-        }
+       }
+              
+        System.out.println ("****************************************************************************************************************************");
+        System.out.println ("\t\t\tCONFUSION MATRIX FOR " + testLines.length + " RECORDS");
+        System.out.println ("****************************************************************************************************************************");
+        System.out.println ("\t" + ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + " || " + ANSI_RED + "Deceptive" + ANSI_RESET);
+        System.out.println (ANSI_GREEN + "TRUTHFUL: " + ANSI_RESET + predicted_Truthful_Yes + " || " + predicted_Truthful_No);
+        System.out.println (ANSI_RED + "Deceptive: " + ANSI_RESET + predicted_Deceptive_Yes + " || " + predicted_Deceptive_No);
+        
+        System.out.println ("****************************************************************************************************************************");
+       
+        //calculations 
+        double accuracy = (predicted_Truthful_Yes + predicted_Deceptive_Yes); 
+        double miscalculationRate =(predicted_Truthful_No + predicted_Deceptive_No) ;
+        double truthful = (predicted_Truthful_Yes + predicted_Truthful_No); 
+        double deceptive = (predicted_Deceptive_Yes + predicted_Deceptive_No);
+        double trueTruthfulPositive = predicted_Truthful_Yes/truthful; 
+        double falseTruthfulPositive = predicted_Truthful_No/truthful;
+        double trueDeceptivePositive = predicted_Deceptive_Yes/ deceptive; 
+        double falseDeceptivePositive = predicted_Deceptive_No/ deceptive;
+
+        System.out.println ("Accuracy: " + accuracy / testLines.length);
+        System.out.println ("Miscalculation Rate: " + miscalculationRate / testLines.length);
+        System.out.println (ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + " True Positive:" + trueTruthfulPositive);
+        System.out.println (ANSI_GREEN + "TRUTHFUL" + ANSI_RESET + " False Positive: " + falseTruthfulPositive);
+        System.out.println (ANSI_RED + "Deceptive" + ANSI_RESET + " True Positive: " + trueDeceptivePositive);
+        System.out.println (ANSI_RED + "Deceptive" + ANSI_RESET + " False Positive: " + falseDeceptivePositive);
+        
     }
 }
