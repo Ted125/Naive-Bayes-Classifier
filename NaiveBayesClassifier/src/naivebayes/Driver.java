@@ -36,7 +36,7 @@ public class Driver {
         Map<String, String> trainingFiles = new HashMap<>();
         trainingFiles.put("Truthful", DATASET_TRUTHFUL);
         trainingFiles.put("Deceptive", DATASET_DECEPTIVE);
-        
+            
         Map<String, String[]> trainingExamples = new HashMap<>();
         
         for(Map.Entry<String, String> entry : trainingFiles.entrySet()) {
@@ -49,6 +49,7 @@ public class Driver {
         
         NaiveBayesKnowledgeBase knowledgeBase = nb.getKnowledgeBase();
         
+        System.out.println ("****************************************************************************************************************************");
         inputTestData(knowledgeBase);
     }
     
@@ -65,6 +66,7 @@ public class Driver {
     
     private static void inputTestData(NaiveBayesKnowledgeBase knowledgeBase) throws IOException{
        NaiveBayes nb = new NaiveBayes(knowledgeBase);
+
        int predicted_Truthful_No = 0; 
        int predicted_Truthful_Yes = 0;
        int predicted_Deceptive_No = 0; 
@@ -83,7 +85,7 @@ public class Driver {
         for(i = 0; i < testLines.length; i++){
             String input = testLines[i][1];
             String prediction =  nb.predict(testLines[i][1]);
-            
+                        
             if(testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){
                predicted_Truthful_Yes++; 
             }else if (!testLines[i][0].equalsIgnoreCase(prediction) && testLines[i][0].equalsIgnoreCase("Truthful")){
