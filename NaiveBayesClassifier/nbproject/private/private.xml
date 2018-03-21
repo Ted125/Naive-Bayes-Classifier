@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/Document.java</file>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/Driver.java</file>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/CSVLoader.java</file>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/FeatureStats.java</file>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/FeatureExtraction.java</file>
-            <file>file:/C:/Users/User/Desktop/EXPERT/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/NaiveBayes.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/NaiveBayesKnowledgeBase.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/TextTokenizer.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/NaiveBayes.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/Driver.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/Document.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/FeatureExtraction.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/FeatureStats.java</file>
+            <file>file:/C:/Users/Ted125/Documents/My%20Codes/Java/NaiveBayesClassifier/NaiveBayesClassifier/src/naivebayes/CSVLoader.java</file>
         </group>
     </open-files>
 </project-private>
